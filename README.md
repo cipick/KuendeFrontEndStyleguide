@@ -670,9 +670,15 @@ Name your regions with the suffix `Region` so that they do not get confused with
 
 #Lodash
 ------
+```coffeescript
+_.clone(value, [isDeep=false], [callback], [thisArg])
+```
+
+Creates a clone of value. If isDeep is true nested objects will also be cloned, otherwise they will be assigned by reference. If a callback is provided it will be executed to produce the cloned values. If the callback returns undefined cloning will be handled by the method instead. The callback is bound to thisArg and invoked with one argument; (value).
 
 #jQuery
 ------
+jQuery's syntax is designed to make it easier to navigate a document, select DOM elements, create animations, handle events, and develop Ajax applications.
 
 #AMD
 ---
