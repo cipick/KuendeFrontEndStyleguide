@@ -1,5 +1,72 @@
-CoffeeScript
-------------
+## Table of Contents
+
+* [The CoffeeScript Style Guide](#guide)
+    * [Code Layout](#code_layout)
+        * [Tabs or Spaces?](#tabs_or_spaces)
+        * [Maximum Line Length](#maximum_line_length)
+        * [Blank Lines](#blank_lines)
+        * [Trailing Whitespace](#trailing_whitespace)
+        * [Optional Commas](#optional_commas)
+        * [Encoding](#encoding)
+    * [Module Imports](#module_imports)
+    * [Whitespace in Expressions and Statements](#whitespace)
+    * [Comments](#comments)
+        * [Block Comments](#block_comments)
+        * [Inline Comments](#inline_comments)
+    * [Naming Conventions](#naming_conventions)
+    * [Functions](#functions)
+    * [Strings](#strings)
+    * [Conditionals](#conditionals)
+    * [Looping and Comprehensions](#looping_and_comprehensions)
+    * [Extending Native Objects](#extending_native_objects)
+    * [Exceptions](#exceptions)
+    * [Annotations](#annotations)
+    * [Miscellaneous](#miscellaneous)
+ * [Marionette + Backbone Style Guide] (#marionette-guide)
+ 	* [CoffeeScript] (#mar-coffeescript)
+    * [Modules] (#mar-modules)
+    	* [Grouping] (#mar-grouping)
+        * [Shared models] (#mar-shared)
+        * [Naming] (#mar-naming--modules)
+        * [File structure] (#mar-file--structure)
+    * [Routers] (#mar-routers)
+    * [Controllers] (#mar-controllers)
+    * [Views] (#mar-views)
+    	* [Naming] (#mar-naming--views)
+        * [Callbacks] (#mar-callbacks)
+    * [Regions]
+    	* [Naming] (#mar-naming-regions)
+    
+<a name="guide"/>
+#  The CoffeeScript Style Guide
+-------------------------------
+
+<a name="code_layout"/>
+## Code layout
+
+<a name="tabs_or_spaces"/>
+### Tabs or Spaces?
+
+Use **tabs only**, with **one tab** per indentation level. Never mix tabs and spaces.
+
+<a name="maximum_line_length"/>
+### Maximum Line Length
+
+Limit all lines to a maximum of 79 characters.
+
+<a name="blank_lines"/>
+### Blank Lines
+
+Separate top-level function and class definitions with a single blank line.
+
+Separate method definitions inside of a class with a single blank line.
+
+Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+<a name="trailing_whitespace"/>
+### Trailing Whitespace
+
+Do not include trailing whitespace on any lines.
 
 <a name="optional_commas"/>
 ### Optional Commas
@@ -42,6 +109,21 @@ Separate top-level function and class definitions with a single blank line.
 Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
+
+<a name="module_imports"/>
+## Module Imports
+
+If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
+
+```coffeescript
+require 'lib/setup'
+Backbone = require 'backbone'
+```
+These statements should be grouped in the following order:
+
+1. Standard library imports _(if a standard library exists)_
+2. Third party library imports
+3. Local imports _(imports specific to this application or library)_
 
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
@@ -384,19 +466,13 @@ console.log args... # Yes
 
 (a, b, c, rest...) -> # Yes
 ```
-Backbone/Marionette
--------------------
+
 # Marionette + Backbone Style Guide
-
-This style guide for Marionette and Backbone was written so that our development team would be on the same page for coding standards, best practices, patterns and anti-patterns when writing Marionette apps in CoffeeScript, especially since there was no formal style guide for Marionette app development.
-
-It is made available to the developer community for sharing and improvement. Contribution is welcome and encouraged.
+___________________________________
 
 ## CoffeeScript
 
 We use CoffeeScript for writing our code, instead of vanilla JavaScript, allowing us to focus our attention on problem-solving.
-
-This document does not define a style guide for CoffeeScript itself, as there are plenty of good ones already written. Use [polarmobile's CoffeeScript Style Guide](https://github.com/polarmobile/coffeescript-style-guide) for reference.
 
 ## Modules
 
@@ -578,6 +654,7 @@ view.render()
 
 ## Regions
 
+<a name="mar-naming-regions" />
 ### Naming
 
 Name your regions with the suffix `Region` so that they do not get confused with other fields.
@@ -591,21 +668,22 @@ Name your regions with the suffix `Region` so that they do not get confused with
 ```
 
 
-Lodash
+#Lodash
 ------
 
-jQuery
+#jQuery
 ------
 
-AMD
+#AMD
 ---
 
-Building
+#Building
 --------
 
-Handlebars
+#Handlebars
 ----------
 ###Saving the Templates
 I save all Handlebars.js templates in app/templates/
+
 ###Saving the Pages
 I save all Handlebars.js templates in app/pages/
