@@ -8,7 +8,6 @@
         * [Trailing Whitespace](#trailing_whitespace)
         * [Optional Commas](#optional_commas)
         * [Encoding](#encoding)
-    * [Module Imports](#module_imports)
     * [Whitespace in Expressions and Statements](#whitespace)
     * [Comments](#comments)
         * [Block Comments](#block_comments)
@@ -34,7 +33,7 @@
     * [Views](#mar-views)
     	* [Naming](#mar-naming--views)
         * [Callbacks](#mar-callbacks)
-    * [Regions]
+    * [Regions](#mar-regions)
     	* [Naming](#mar-naming-regions)
     
 <a name="guide"/>
@@ -109,21 +108,6 @@ Separate top-level function and class definitions with a single blank line.
 Separate method definitions inside of a class with a single blank line.
 
 Use a single blank line within the bodies of methods or functions in cases where this improves readability (e.g., for the purpose of delineating logical sections).
-
-<a name="module_imports"/>
-## Module Imports
-
-If using a module system (CommonJS Modules, AMD, etc.), `require` statements should be placed on separate lines.
-
-```coffeescript
-require 'lib/setup'
-Backbone = require 'backbone'
-```
-These statements should be grouped in the following order:
-
-1. Standard library imports _(if a standard library exists)_
-2. Third party library imports
-3. Local imports _(imports specific to this application or library)_
 
 <a name="whitespace"/>
 ## Whitespace in Expressions and Statements
@@ -676,20 +660,197 @@ _.clone(value, [isDeep=false], [callback], [thisArg])
 
 Creates a clone of value. If isDeep is true nested objects will also be cloned, otherwise they will be assigned by reference. If a callback is provided it will be executed to produce the cloned values. If the callback returns undefined cloning will be handled by the method instead. The callback is bound to thisArg and invoked with one argument; (value).
 
+```coffeescript
+_.throttle(func, wait, [options])
+```
+Creates a function that, when executed, will only call the func function at most once per every wait milliseconds. Provide an options object to indicate that func should be invoked on the leading and/or trailing edge of the wait timeout. Subsequent calls to the throttled function will return the result of the last func call.
+
+```coffeescript
+_.assign(object, [source], [callback], [thisArg])
+```
+Assigns own enumerable properties of source object(s) to the destination object. Subsequent sources will overwrite property assignments of previous sources. If a callback is provided it will be executed to produce the assigned values. The callback is bound to thisArg and invoked with two arguments; (objectValue, sourceValue).
+
+```coffeescript
+_.forEach(collection, [callback=_.identity], [thisArg])
+```
+Iterates over elements of a collection, executing the callback for each element. The callback is bound to thisArg and invoked with three arguments; (value, index|key, collection). Callbacks may exit iteration early by explicitly returning false.
+
+Note: As with other "Collections" methods, objects with a length property are iterated like arrays. To avoid this behavior _.forIn or _.forOwn may be used for object iteration.
+
+```coffeescript
+_.last(array, [callback], [thisArg])
+```
+Gets the last element or last n elements of an array. If a callback is provided elements at the end of the array are returned as long as the callback returns truthy. The callback is bound to thisArg and invoked with three arguments; (value, index, array).
+
+If a property name is provided for callback the created "_.pluck" style callback will return the property value of the given element.
+
+If an object is provided for callback the created "_.where" style callback will return true for elements that have the properties of the given object, else false.
+
+```coffeescript
+_.assign(object, [source], [callback], [thisArg])
+```
+Assigns own enumerable properties of source object(s) to the destination object. Subsequent sources will overwrite property assignments of previous sources. If a callback is provided it will be executed to produce the assigned values. The callback is bound to thisArg and invoked with two arguments; (objectValue, sourceValue).
+
+```coffeescript
+_.pick(object, [callback], [thisArg])
+```
+Creates a shallow clone of object composed of the specified properties. Property names may be specified as individual arguments or as arrays of property names. If a callback is provided it will be executed for each property of object picking the properties the callback returns truthy for. The callback is bound to thisArg and invoked with three arguments; (value, key, object).
+
+```coffeescript
+_.forOwn(object, [callback=_.identity], [thisArg])
+```
 #jQuery
 ------
-jQuery's syntax is designed to make it easier to navigate a document, select DOM elements, create animations, handle events, and develop Ajax applications.
+Use jQuery to: 
+- navigate a document 
+- select and manipulate DOM elements 
+```coffeescript
+$('el').addClass('class')
+$('el').css('left', 0)
+```
+- create animations
+```coffeescrip 
+$('el').animate({
+    opacity: 0.25,
+    left: "+=50",
+    height: "toggle"
+  }, 5000, function() {
+    // Animation complete.
+  });
+```
+- handle events
 
+- Ajax requests.
+
+<a name="amd"/>
 #AMD
 ---
 
+`require` statements should be placed on separate lines.
+
+```coffeescript
+require 'lib/setup'
+Backbone = require 'backbone'
+```
+These statements should be grouped in the following order:
+
+1. Standard library imports _(if a standard library exists)_
+2. Third party library imports
+3. Local imports _(imports specific to this application or library)_
+
 #Building
 --------
+## Gulp
+### Remove old fonts
+``` gulp remove-old-fonts```
+### Suffix fonts and copy
+``` gulp copy-fonts```
+### Find last git revision
+``` gulp gitrev```
+### Clean old uncached CSS files
+``` gulp build-styles-clean```
+### Build styles
+``` gulp build-styles```
+### Build Pages
+``` gulp build-pages```
+### Build Scripts
+``` gulp build-scripts```
+### Build Templates
+``` gulp build-templates```
+### Copy vendor JS code
+``` gulp build-vendor```
+### Build
+``` gulp build```
+### Development
+``` gulp dev```
+### Watch
+``` gulp w```
+### Test
+``` gulp t```
+### Test CI (functional tests)
+``` gulp tci```
+### Documentation through backend code
+``` gulp doc```
+### Staging deploy through backend code
+``` gulp staging-full```
+### Deploy only front end to staging
+``` gulp s```
+### Deploy only front end to staging. Deploy as dev version
+``` gulp sd```
 
 #Handlebars
 ----------
-###Saving the Templates
+
+## Helpers
+
+### Conditional helpers
+Sometimes you may only want to display part of your template if a property exists. For example, let’s say we have a view with a person property that contains an object with firstName and lastName fields:
+
+```coffeescript
+{{#if person}}
+  Welcome back, <b>{{person.firstName}} {{person.lastName}}</b>!
+{{/if}}
+```
+
+```coffeescript
+{{#if person}}
+  Welcome back, <b>{{person.firstName}} {{person.lastName}}</b>!
+{{else}}
+  Please log in.
+{{/if}}
+```
+
+```coffeescript
+{{#unless hasPaid}}
+  You owe: ${{total}}
+{{/unless}}
+```
+
+### Displaying a List of Items
+If you need to display a basic list of items, use Handlebar’s ```{{#each}}``` helper:
+
+```coffeescript
+{{#each people}}
+Hello, {{name}}!
+{{/each}}
+```
+### Equality
+Use ```{{#eq val1 val2}}``` when you need to check the type of object.
+```coffeescript
+{{#eq type "all" }}
+<button class="orderer" data-target="sortableAnswers_{{type}}">save order</button>
+{{/eq}}
+```
+### Binding Element Attributes with {{bindAttr}}
+In addition to text, you may also want your templates to dictate the attributes of your HTML elements. For example, imagine a view that contains a URL:
+```
+App.LogoView = SC.TemplateView.extend({
+  logoUrl: 'http://www.mycorp.com/images/logo.png'
+});
+```
+
+```
+<div id="logo">
+  <img {{bindAttr src="logoUrl"}} alt="Logo">
+</div>
+```
+
+### Saving the Pages (400, 500, landing, lobby)
+I save all Handlebars.js templates in app/pages/
+
+### Saving the Templates
 I save all Handlebars.js templates in app/templates/
 
-###Saving the Pages
-I save all Handlebars.js templates in app/pages/
+Project Structure:
+```
+project/
+	css/
+	js/
+    pages/
+    	partials/
+        _*.hbs
+    templates/
+      sections/
+      	block/
+        	element.hbs
+```
