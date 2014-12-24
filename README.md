@@ -35,6 +35,18 @@
         * [Callbacks](#mar-callbacks)
     * [Regions](#mar-regions)
     	* [Naming](#mar-naming-regions)
+* [Lodash] (#lodash)
+	* [Object](#lod-object)
+    	* [_.assign](#lod-assign)
+    	* [_.clone](#lod-clone)
+        * [_.forOwn](#lod-forown)
+        * [_.pick](#lod-pick)
+    * [Functions](#lod-func)
+    	* [_.throttle](#lod-throttle)
+    * [Array](#lod-array)
+    	* [_.last](#lod-last)
+    * [Collections](#lod-col)
+    	* [_.forEach](#lod-foreach)
     
 <a name="guide"/>
 #  The CoffeeScript Style Guide
@@ -696,9 +708,19 @@ _.pick(object, [callback], [thisArg])
 ```
 Creates a shallow clone of object composed of the specified properties. Property names may be specified as individual arguments or as arrays of property names. If a callback is provided it will be executed for each property of object picking the properties the callback returns truthy for. The callback is bound to thisArg and invoked with three arguments; (value, key, object).
 
+--------------
+
 ```coffeescript
 _.forOwn(object, [callback=_.identity], [thisArg])
 ```
+Iterates over own enumerable properties of an object, executing the callback for each property. The callback is bound to thisArg and invoked with three arguments; (value, key, object). Callbacks may exit iteration early by explicitly returning false.
+```
+_.forOwn({ '0': 'zero', '1': 'one', 'length': 2 }, function(num, key) {
+  console.log(key);
+});
+// → logs '0', '1', and 'length' (property order is not guaranteed across environments)
+```
+
 #jQuery
 ------
 Use jQuery to: 
